@@ -1,61 +1,70 @@
-# Calendar Conflict Detector
+# 📅 Calendar Conflict Detector
 
-A Python CLI agent that reads scheduled events from a CSV file, detects time conflicts and insufficient gaps between meetings, and outputs a structured conflict report with actionable resolution suggestions.
+> A lightweight Python CLI tool that scans your scheduled events, detects time conflicts and tight gaps between meetings, and delivers a structured report with actionable resolution suggestions — no external dependencies required.
 
-## Features
+---
 
-- Detects **overlapping events** and **events with insufficient buffer time**
-- Classifies conflict **severity** (high / medium) based on event priority
-- Suggests smart resolutions — reschedule lower-priority or flexible events first
-- Supports **multiple datetime formats** (`YYYY-MM-DD HH:MM`, ISO 8601, `DD/MM/YYYY HH:MM`)
-- Outputs results to `conflicts.json` and `conflicts.txt`
-- Prints a formatted summary report to the terminal
-- Gracefully **skips malformed rows** with warnings instead of crashing
+## ✨ Features
 
-## Requirements
+- **Overlap detection** — flags events that share overlapping time slots
+- **Buffer gap checks** — warns when meetings are scheduled too close together (default: < 10 minutes apart)
+- **Severity classification** — ranks conflicts as `high` or `medium` based on event priority
+- **Smart resolution suggestions** — recommends rescheduling lower-priority or flexible events first
+- **Multiple datetime formats** — supports `YYYY-MM-DD HH:MM`, ISO 8601, and `DD/MM/YYYY HH:MM`
+- **Dual output** — saves results to both `conflicts.json` and `conflicts.txt`
+- **Resilient parsing** — skips malformed rows with warnings instead of crashing
+- **Zero dependencies** — built entirely on the Python standard library
+
+---
+
+## 🛠️ Requirements
 
 - Python 3.8+
-- No external dependencies — standard library only
+- No external packages needed
 
-## Installation
+---
 
-1. **Clone the repository**
+## 🚀 Installation
 
-   ```bash
-   git clone https://github.com/Crevatec/Calendar-Conflict-Detector.git
-   cd Calendar-Conflict-Detector
-   ```
+```bash
+git clone https://github.com/Crevatec/Calendar-Conflict-Detector.git
+cd Calendar-Conflict-Detector
+```
 
-2. **No pip install needed** — uses only Python standard library.
+That's it — no `pip install` required.
 
-## Usage
+---
 
-1. Add your events to `calendar.csv` (see format below).
+## 📖 Usage
 
+1. Populate `calendar.csv` with your events (see [CSV format](#-csv-format) below).
 2. Run the agent:
 
-   ```bash
-   python agent.py
-   ```
+```bash
+python agent.py
+```
 
-3. Results are saved to:
-   - `conflicts.json` — structured conflict data
-   - `conflicts.txt` — human-readable report
+3. Review your results:
+   - `conflicts.json` — machine-readable conflict data
+   - `conflicts.txt` — human-readable summary report
+   - Terminal — formatted summary printed directly to stdout
 
-## Calendar CSV Format
+---
 
-Create a `calendar.csv` file with these columns:
+## 📋 CSV Format
 
-| Column       | Required | Format                          | Example                  |
-|--------------|----------|---------------------------------|--------------------------|
-| `title`      | Yes      | Text                            | Team Standup             |
-| `start_time` | Yes      | `YYYY-MM-DD HH:MM`              | 2025-07-01 09:00         |
-| `end_time`   | Yes      | `YYYY-MM-DD HH:MM`              | 2025-07-01 09:30         |
-| `priority`   | Yes      | `low` / `medium` / `high`       | high                     |
-| `type`       | Yes      | Any label                       | meeting                  |
-| `flexible`   | Yes      | `yes` / `no`                    | no                       |
+Create a `calendar.csv` file in the project root with the following columns:
 
-### Example `calendar.csv`
+| Column | Required | Format | Example |
+|---|---|---|---|
+| `title` | ✅ | Text | `Team Standup` |
+| `start_time` | ✅ | `YYYY-MM-DD HH:MM` | `2025-07-01 09:00` |
+| `end_time` | ✅ | `YYYY-MM-DD HH:MM` | `2025-07-01 09:30` |
+| `priority` | ✅ | `low` / `medium` / `high` | `high` |
+| `type` | ✅ | Any label | `meeting` |
+| `flexible` | ✅ | `yes` / `no` | `no` |
+
+### Example
 
 ```csv
 title,start_time,end_time,priority,type,flexible
@@ -65,7 +74,9 @@ Code Review,2025-07-01 10:05,2025-07-01 11:00,medium,meeting,yes
 Lunch Break,2025-07-01 11:00,2025-07-01 12:00,low,personal,yes
 ```
 
-## Output Format
+---
+
+## 📤 Output
 
 ### `conflicts.json`
 
@@ -109,45 +120,55 @@ Conflicts
     Action   : Requires human decision — neither event is flexible
 ```
 
-## Configuration
+---
 
-Edit these constants at the top of `agent.py`:
+## ⚙️ Configuration
 
-| Variable              | Default          | Description                            |
-|-----------------------|------------------|----------------------------------------|
-| `BUFFER_MINUTES`      | `10`             | Minimum gap required between events    |
-| `CALENDAR_INPUT_PATH` | `calendar.csv`   | Path to the input CSV file             |
-| `JSON_OUTPUT_PATH`    | `conflicts.json` | Path for JSON output                   |
-| `TXT_OUTPUT_PATH`     | `conflicts.txt`  | Path for plain text output             |
+You can adjust the following constants at the top of `agent.py`:
 
-## Conflict Types
+| Variable | Default | Description |
+|---|---|---|
+| `BUFFER_MINUTES` | `10` | Minimum gap required between events (minutes) |
+| `CALENDAR_INPUT_PATH` | `calendar.csv` | Path to the input CSV file |
+| `JSON_OUTPUT_PATH` | `conflicts.json` | Path for the JSON output file |
+| `TXT_OUTPUT_PATH` | `conflicts.txt` | Path for the plain text output file |
 
-| Type        | Description                                              |
-|-------------|----------------------------------------------------------|
-| `overlap`   | Two events share overlapping time slots                  |
-| `no_buffer` | Gap between events is less than `BUFFER_MINUTES`         |
+---
 
-## Severity Logic
+## 🔍 Conflict & Severity Reference
 
-| Condition                            | Severity |
-|--------------------------------------|----------|
-| Either event has `priority = high`   | High     |
-| Both events are medium or low        | Medium   |
+### Conflict Types
 
-## Project Structure
+| Type | Description |
+|---|---|
+| `overlap` | Two events share overlapping time slots |
+| `no_buffer` | Gap between consecutive events is less than `BUFFER_MINUTES` |
+
+### Severity Logic
+
+| Condition | Severity |
+|---|---|
+| Either event has `priority = high` | `high` |
+| Both events are `medium` or `low` priority | `medium` |
+
+---
+
+## 🗂️ Project Structure
 
 ```
 Calendar-Conflict-Detector/
-├── agent.py          # Main script
-├── calendar.csv      # Input events (you provide this)
+├── agent.py          # Main detection script
+├── calendar.csv      # Your input events (user-provided)
 ├── conflicts.json    # Generated JSON output
-├── conflicts.txt     # Generated text report
-└── README.md         # This file
+├── conflicts.txt     # Generated plain-text report
+└── README.md
 ```
 
-## .gitignore Recommendation
+---
 
-```
+## 🙈 Recommended `.gitignore`
+
+```gitignore
 conflicts.json
 conflicts.txt
 calendar.csv
@@ -155,6 +176,8 @@ __pycache__/
 *.pyc
 ```
 
-## License
+---
 
-MIT
+## 📄 License
+
+MIT — free to use, modify, and distribute.
