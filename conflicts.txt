@@ -1,0 +1,40 @@
+Calendar Conflict Report (2026-05-07)
+=============================================
+Total events loaded : 6
+Conflicts detected  : 5
+  - Overlaps        : 2
+  - No buffer (<10m) : 3
+  - High severity   : 4
+
+Conflicts
+---------------------------------------------
+
+[1] Team Sync  →  Client Call
+    Type     : Overlap
+    Severity : HIGH
+    Overlap  : 30 minutes
+    Action   : Requires human decision — neither event is flexible
+
+[2] Client Call  →  Code Review
+    Type     : No Buffer
+    Severity : HIGH
+    Gap      : 0 minutes (buffer required: 10m)
+    Action   : Reschedule 'Code Review' — lower priority and flexible
+
+[3] Code Review  →  Deep Work Block
+    Type     : No Buffer
+    Severity : HIGH
+    Gap      : 0 minutes (buffer required: 10m)
+    Action   : Reschedule 'Code Review' — lower priority and flexible
+
+[4] Deep Work Block  →  Lunch
+    Type     : Overlap
+    Severity : HIGH
+    Overlap  : 30 minutes
+    Action   : Reschedule 'Lunch' — lower priority and flexible
+
+[5] Lunch  →  Weekly Planning
+    Type     : No Buffer
+    Severity : MEDIUM
+    Gap      : 0 minutes (buffer required: 10m)
+    Action   : Reschedule 'Lunch' — lower priority and flexible

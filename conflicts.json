@@ -1,0 +1,60 @@
+{
+  "generated_on": "2026-05-07",
+  "conflicts": [
+    {
+      "event_a": "Team Sync",
+      "event_b": "Client Call",
+      "event_a_end": "2025-12-23 10:00",
+      "event_b_start": "2025-12-23 09:30",
+      "type": "overlap",
+      "severity": "high",
+      "overlap_minutes": 30,
+      "gap_minutes": 0,
+      "suggestion": "Requires human decision \u2014 neither event is flexible"
+    },
+    {
+      "event_a": "Client Call",
+      "event_b": "Code Review",
+      "event_a_end": "2025-12-23 10:30",
+      "event_b_start": "2025-12-23 10:30",
+      "type": "no_buffer",
+      "severity": "high",
+      "overlap_minutes": 0,
+      "gap_minutes": 0,
+      "suggestion": "Reschedule 'Code Review' \u2014 lower priority and flexible"
+    },
+    {
+      "event_a": "Code Review",
+      "event_b": "Deep Work Block",
+      "event_a_end": "2025-12-23 11:00",
+      "event_b_start": "2025-12-23 11:00",
+      "type": "no_buffer",
+      "severity": "high",
+      "overlap_minutes": 0,
+      "gap_minutes": 0,
+      "suggestion": "Reschedule 'Code Review' \u2014 lower priority and flexible"
+    },
+    {
+      "event_a": "Deep Work Block",
+      "event_b": "Lunch",
+      "event_a_end": "2025-12-23 13:00",
+      "event_b_start": "2025-12-23 12:30",
+      "type": "overlap",
+      "severity": "high",
+      "overlap_minutes": 30,
+      "gap_minutes": 0,
+      "suggestion": "Reschedule 'Lunch' \u2014 lower priority and flexible"
+    },
+    {
+      "event_a": "Lunch",
+      "event_b": "Weekly Planning",
+      "event_a_end": "2025-12-23 13:00",
+      "event_b_start": "2025-12-23 13:00",
+      "type": "no_buffer",
+      "severity": "medium",
+      "overlap_minutes": 0,
+      "gap_minutes": 0,
+      "suggestion": "Reschedule 'Lunch' \u2014 lower priority and flexible"
+    }
+  ]
+}
