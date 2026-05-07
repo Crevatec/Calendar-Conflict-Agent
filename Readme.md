@@ -14,9 +14,7 @@
 - **Dual output** — saves results to both `conflicts.json` and `conflicts.txt`
 - **Resilient parsing** — skips malformed rows with warnings instead of crashing
 - **Zero dependencies** — built entirely on the Python standard library
-
 ---
-
 ## 🛠️ Requirements
 
 - Python 3.8+
@@ -163,9 +161,7 @@ Calendar-Conflict-Detector/
 ├── conflicts.txt     # Generated plain-text report
 └── README.md
 ```
-
 ---
-
 ## 🙈 Recommended `.gitignore`
 
 ```gitignore
@@ -175,9 +171,7 @@ calendar.csv
 __pycache__/
 *.pyc
 ```
-
 ---
-
 ## 📄 License
 
 MIT — free to use, modify, and distribute.
